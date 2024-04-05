@@ -24,6 +24,8 @@
  */
 
 
+
+
 const FRESH_PRINCE_URL = "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
 const CURB_POSTER_URL = "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
 const EAST_LOS_HIGH_POSTER_URL = "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
@@ -38,6 +40,12 @@ let titles = [
 // you should use more than just an array of strings to store it all.
 
 
+//array of objects to hold pokemons
+import pokemons from "./pokemons.js";
+const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+console.log(pokemons)
+
+
 // This function adds cards the page to display the data in the array
 function showCards() {
     const cardContainer = document.getElementById("card-container");
@@ -45,22 +53,23 @@ function showCards() {
     const templateCard = document.querySelector(".card");
     
     for (let i = 0; i < titles.length; i++) {
-        let title = titles[i];
+        let title = pokemons[i].Name;
 
         // This part of the code doesn't scale very well! After you add your
         // own data, you'll need to do something totally different here.
         let imageURL = "";
         if (i == 0) {
-            imageURL = FRESH_PRINCE_URL;
+            imageURL = `${baseURL}${i+1}.png`;
         } else if (i == 1) {
-            imageURL = CURB_POSTER_URL;
+            imageURL = `${baseURL}${i+1}.png`;
         } else if (i == 2) {
-            imageURL = EAST_LOS_HIGH_POSTER_URL;
+            imageURL = `${baseURL}${i+1}.png`;
         }
 
         const nextCard = templateCard.cloneNode(true); // Copy the template card
         editCardContent(nextCard, title, imageURL); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
+        
     }
 }
 

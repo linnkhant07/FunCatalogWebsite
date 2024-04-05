@@ -45,4 +45,5 @@ This is the instructions, requirements, and starter for stage two of the Snap En
 ## Resources Used
 
 To gather information about pokemon: https://github.com/lgreski/pokemonData/blob/master/Pokemon.csv
+PokeAPI: https://pokeapi.co/docs/v2#pokemon-section
 
