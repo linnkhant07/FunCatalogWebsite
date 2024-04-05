@@ -19,7 +19,9 @@ body {
 }
 
 #card-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px); 
+    gap: 20px; /*gap between cards*/
     justify-content: center;
     margin: 20px;
 }

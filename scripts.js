@@ -52,20 +52,10 @@ function showCards() {
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
     
-    for (let i = 0; i < titles.length; i++) {
+    for (let i = 0; i < pokemons.length; i++) {
         let title = pokemons[i].Name;
 
-        // This part of the code doesn't scale very well! After you add your
-        // own data, you'll need to do something totally different here.
-        let imageURL = "";
-        if (i == 0) {
-            imageURL = `${baseURL}${i+1}.png`;
-        } else if (i == 1) {
-            imageURL = `${baseURL}${i+1}.png`;
-        } else if (i == 2) {
-            imageURL = `${baseURL}${i+1}.png`;
-        }
-
+        let imageURL = `${baseURL}${i+1}.png`;
         const nextCard = templateCard.cloneNode(true); // Copy the template card
         editCardContent(nextCard, title, imageURL); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
@@ -81,7 +71,7 @@ function editCardContent(card, newTitle, newImageURL) {
 
     const cardImage = card.querySelector("img");
     cardImage.src = newImageURL;
-    cardImage.alt = newTitle + " Poster";
+    cardImage.alt = newTitle + " Image";
 
     // You can use console.log to help you debug!
     // View the output by right clicking on your website,
@@ -92,12 +82,12 @@ function editCardContent(card, newTitle, newImageURL) {
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
 
-function quoteAlert() {
+window.quoteAlert = function(){
     console.log("Button Clicked!")
     alert("I guess I can kiss heaven goodbye, because it got to be a sin to look this good!");
 }
 
-function removeLastCard() {
-    titles.pop(); // Remove last item in titles array
+window.removeLastCard = function() {
+    pokemons.pop(); // Remove last item in titles array
     showCards(); // Call showCards again to refresh
 }
