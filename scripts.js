@@ -53,30 +53,33 @@ function showCards() {
     const templateCard = document.querySelector(".card");
     
     for (let i = 0; i < pokemons.length; i++) {
-        let title = pokemons[i].Name;
-
-        let imageURL = `${baseURL}${i+1}.png`;
         const nextCard = templateCard.cloneNode(true); // Copy the template card
-        editCardContent(nextCard, title, imageURL); // Edit title and image
+        editCardContent(nextCard, pokemons[i]); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
         
     }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+function editCardContent(card, pokemon) {
     card.style.display = "block";
 
+    //id of the pokemon
+    const pokemonID = pokemon.Id;
+
     const cardHeader = card.querySelector("h2");
-    cardHeader.textContent = newTitle;
+    cardHeader.textContent = pokemon.Name;
 
     const cardImage = card.querySelector("img");
-    cardImage.src = newImageURL;
-    cardImage.alt = newTitle + " Image";
+    //corresponding pokemon spirte 
+    cardImage.src = `${baseURL}${pokemonID}.png`; 
+    cardImage.alt = pokemon.Name + " Image";
 
-    // You can use console.log to help you debug!
-    // View the output by right clicking on your website,
-    // select "Inspect", then click on the "Console" tab
-    console.log("new card:", newTitle, "- html: ", card);
+    const cardBullets = card.querySelectorAll("li");
+
+    //update the bullet points 
+    cardBullets[0].textContent = `Type: ${pokemon.Type}`;
+    cardBullets[1].textContent = `Total Stats: ${pokemon.Total}`;
+    cardBullets[2].textContent = `Generation: ${pokemon.Generation}`;
 }
 
 // This calls the addCards() function when the page is first loaded
@@ -84,7 +87,7 @@ document.addEventListener("DOMContentLoaded", showCards);
 
 window.quoteAlert = function(){
     console.log("Button Clicked!")
-    alert("I guess I can kiss heaven goodbye, because it got to be a sin to look this good!");
+    alert("Pika Pi Pikachu!");
 }
 
 window.removeLastCard = function() {

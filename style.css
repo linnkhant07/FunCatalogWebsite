@@ -5,7 +5,7 @@ body {
 }
 
 .main-header {
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(224, 0, 0, 0.916);
     padding-bottom: 10px;
 }
 
@@ -38,6 +38,7 @@ body {
     padding: 20px;
     font-family: "Verdana";
     color: #777;
+   
 }
 
 .card-content h2 {
