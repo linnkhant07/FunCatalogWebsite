@@ -76,3 +76,12 @@ button {
     background-color: red;
     border-radius: 20px;
 }
+
+.statBtn{
+    background-color: green;
+    border-radius: 20px;
+}
+
+.lastClicked{
+    background-color: black;
+}
