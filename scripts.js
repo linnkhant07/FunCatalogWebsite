@@ -192,14 +192,24 @@ function deletePokemon(pokemons, deletedPokemon){
     pokemons.splice(indexToDelete, 1);
 }
 
+
 function attachCardEventListeners() {
     const cards = document.querySelectorAll(".card");
     cards.forEach(card => {
         card.addEventListener("click", () => {
             const deletedPokemon = card.querySelector("li").innerText;
             //console.log(pokemonID);
-            deletePokemon(allPokemons, deletedPokemon);
-            showCards(); 
+
+            card.style.transition = "opacity 0.5s ease";
+            card.style.opacity = 0;
+            //apply fade-out transition effect
+            setTimeout(() => {
+                
+                deletePokemon(allPokemons, deletedPokemon);
+                showCards(); 
+            }, 500)
+            
+            
         });
     });
 }
