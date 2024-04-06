@@ -176,4 +176,3 @@ window.removeLastCard = function() {
     allPokemons.pop(); // Remove last item in titles array
     showCards(); // Call showCards again to refresh
 }
-
