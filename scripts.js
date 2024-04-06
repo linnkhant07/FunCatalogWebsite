@@ -28,6 +28,8 @@
 import allPokemons from "./pokemons.js";
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
+const baseURL_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+
 
 
 
@@ -223,6 +225,17 @@ function updateModalBox(pokemonID){
     dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
 }
 
+function playPokemonSound(pokemonID) {
+
+    const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
+
+    //to play pokemon sounds
+    const pokemonSound = document.getElementById("pokemonSound")
+    pokemonSound.src =`${baseURL_sound}${pokemon.Id}.ogg`
+
+    pokemonSound.volume = 0.2;
+    pokemonSound.play();
+}
 
 function attachCardEventListeners() {
 
@@ -243,11 +256,15 @@ function attachCardEventListeners() {
 
             updateModalBox(pokemonID);
 
+            playPokemonSound(pokemonID);
             dialog.showModal();
             
             
         });
     })
+    
+
+
 
     //release buttons
     const releaseButtons = document.querySelectorAll(".release");
@@ -266,6 +283,8 @@ function attachCardEventListeners() {
 
             const imgElement = card.querySelector('img');
             imgElement.src = `${baseURL_back}${deleteID}.png`
+
+            playPokemonSound(deleteID);
 
             setTimeout(()=>{
                 //speical release / delete effects
