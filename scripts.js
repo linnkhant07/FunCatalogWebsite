@@ -36,6 +36,10 @@ function showCards() {
 
     let displayPokemons = []
 
+    // Store the current scroll position
+    const scrollPosition = window.scrollY;
+    
+
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
@@ -63,6 +67,9 @@ function showCards() {
         cardContainer.appendChild(nextCard); // Add new card to the container
         
     }
+
+    // Restore the scroll position after re-rendering
+    window.scrollTo(0, scrollPosition);
 
     //reattach event listeners to new cards
     //mainly for delete
@@ -192,18 +199,20 @@ function deletePokemon(pokemons, deleteID){
 
 
 function attachCardEventListeners() {
-    const cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-        card.addEventListener("click", () => {
+
+    const releaseButtons = document.querySelectorAll(".release");
+    releaseButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+
+            //take the parent card of the btn
+            const card = btn.closest('.card');
+
             const deletedPokemon = card.querySelector("li").innerText;
             //console.log(pokemonID);
 
             //pick out the id part first
             const parts = deletedPokemon.split(":");
             const deleteID = parseInt(parts[1].trim());
-
-            // Store the current scroll position
-            const scrollPosition = window.scrollY;
 
 
             //speical release / delete effects
@@ -219,9 +228,6 @@ function attachCardEventListeners() {
                 deletePokemon(allPokemons, deleteID);
                 showCards(); 
 
-                // Restore the scroll position after re-rendering
-                window.scrollTo(0, scrollPosition);
-
             }, 1000)
             
             
@@ -229,12 +235,3 @@ function attachCardEventListeners() {
     });
 }
 
-window.quoteAlert = function(){
-    console.log("Button Clicked!")
-    alert("Pika Pi Pikachu!");
-}
-
-window.removeLastCard = function() {
-    allPokemons.pop(); // Remove last item in titles array
-    showCards(); // Call showCards again to refresh
-}
