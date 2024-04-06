@@ -38,13 +38,18 @@ function showCards() {
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
 
-    //filter accordingly to what user has chosen
+    //filter accordingly to pokemon type
     const typeButtons = document.querySelector('.typeButtons');
     const typeToFilter = typeButtons.querySelector('.lastClicked').innerText;
 
     displayPokemons = filterByType(allPokemons, typeToFilter)
 
-    //sort accordingly to what user has chosen
+    //filter accordingly to search query
+    const searchBox = document.querySelector('#pokeSearch');
+    const searchQuery = searchBox.value.trim(); //trim whitespace
+    displayPokemons = filterByName(displayPokemons, searchQuery);
+
+    //sort accordingly to  pokemon stats
     const statButtons = document.querySelector('.statButtons');
     const statToSort = statButtons.querySelector('.lastClicked').innerText;
     
@@ -146,6 +151,21 @@ statButtons.forEach(btn => {
         showCards()
     })
 })
+
+//for searching pokemons with name
+function filterByName(pokemons, searchQuery) {
+
+    const filteredPokemons = pokemons.filter(pokemon =>
+      pokemon.Name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return filteredPokemons;
+}
+
+const searchInput = document.getElementById('pokeSearch');
+searchInput.addEventListener('input', () => {
+    showCards();
+  });
 
 window.quoteAlert = function(){
     console.log("Button Clicked!")
