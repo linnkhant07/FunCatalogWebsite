@@ -197,9 +197,59 @@ function deletePokemon(pokemons, deleteID){
     pokemons.splice(indexToDelete, 1);
 }
 
+//for dialog box - show pokemon details
+const dialog = document.querySelector('dialog')
+const openDialog = document.querySelector('.openDialog')
+const closeDialog = document.querySelector('#closeDialog')
+
+openDialog.addEventListener("click", ()=>{
+    dialog.showModal();
+})
+closeDialog.addEventListener("click", ()=>{
+    dialog.close();
+})
+
+//update the modal(details) box according to the clicked pokemon
+function updateModalBox(pokemonID){
+
+    const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
+    //destructure all the properties from pokemon object
+    const { Name, Id, Total, Description} = pokemon
+    
+    dialog.querySelector('#pokemonName').textContent = Name;
+    dialog.querySelector('#pokemonId').textContent = `ID: ${Id}`;
+    dialog.querySelector('#totalStats').textContent = `Total Stats: ${Total}`;
+    dialog.querySelector('#pokemonDescription').textContent = Description;
+    dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
+}
+
 
 function attachCardEventListeners() {
 
+    //details buttons
+    const detailsButtons = document.querySelectorAll(".details");
+    detailsButtons.forEach(btn =>{
+        btn.addEventListener("click", () => {
+
+            //take the parent card of the btn
+            const card = btn.closest('.card');
+
+            let pokemonID = card.querySelector("li").innerText;
+            
+            //pick out the id part first
+            const parts = pokemonID.split(":");
+            pokemonID = parseInt(parts[1].trim());
+            //console.log(pokemonID);
+
+            updateModalBox(pokemonID);
+
+            dialog.showModal();
+            
+            
+        });
+    })
+
+    //release buttons
     const releaseButtons = document.querySelectorAll(".release");
     releaseButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -214,13 +264,15 @@ function attachCardEventListeners() {
             const parts = deletedPokemon.split(":");
             const deleteID = parseInt(parts[1].trim());
 
-
-            //speical release / delete effects
-            card.style.transition = "opacity 1s ease";
-            card.style.opacity = 0;
-
             const imgElement = card.querySelector('img');
             imgElement.src = `${baseURL_back}${deleteID}.png`
+
+            setTimeout(()=>{
+                //speical release / delete effects
+                card.style.transition = "opacity 1s ease";
+                card.style.opacity = 0;
+            }, 400)
+            
 
             //apply fade-out transition effect
             setTimeout(() => {
@@ -233,5 +285,6 @@ function attachCardEventListeners() {
             
         });
     });
+
 }
 

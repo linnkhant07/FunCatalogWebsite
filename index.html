@@ -14,6 +14,7 @@
         <h1 class="title">Mini Pokèdex</h1>
     </header>
     <div>
+        
         <div class="search">
             <label for="pokeSearch">Search a Pokemon:</label>
             <input type="search" id="pokeSearch" name="poke-search" />
@@ -34,6 +35,9 @@
             </button>
             <button class="typeBtn">
                 Grass
+            </button>
+            <button class="typeBtn">
+                Electric
             </button>
             <button class="typeBtn">
                 Poison
@@ -72,6 +76,23 @@
         </div>
 
     </div>
+
+    <button class="openDialog">Open Dialog</button>
+    <dialog class="dialog-container">
+        <div class="modal-content">
+            <div class="left-column">
+                <img id="pokemonImage" src="" alt="">
+                <h2 id="pokemonName"></h2>
+            </div>
+            <div class="right-column">
+                <p id="pokemonId"></p>
+                <p id="totalStats"></p>
+                <p id="pokemonDescription"></p>
+            </div>
+            <button id="closeDialog">Close</button>
+        </div>
+    </dialog>
+
     <div id="card-container">
         
     </div>
@@ -86,6 +107,7 @@
             </ul>
             
             <div class="buttons-container">
+                
                 <button class="details">Details</button>
                 <button class="release">Release</button>
             </div>

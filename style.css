@@ -122,3 +122,46 @@ button {
 .lastClicked{
     background-color: black;
 }
+
+/*for modal*/
+.modal-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-column {
+    flex: 1;
+    text-align: center;
+}
+
+.right-column {
+    flex: 1;
+    padding-left: 20px;
+}
+
+/* Define the size of the dialog box */
+dialog {
+    width: 70%; /* Set a percentage-based width */
+    max-width: 700px; /* Set a maximum width */
+    overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}
+
+dialog #pokemonImage{
+    width: 100%;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+    }
+    
+    .left-column,
+    .right-column {
+        flex: none;
+    }
+
+    .right-column {
+        padding-left: 0;
+    }
+}
