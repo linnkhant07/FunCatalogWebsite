@@ -61,6 +61,10 @@ function showCards() {
         cardContainer.appendChild(nextCard); // Add new card to the container
         
     }
+
+    //reattach event listeners to new cards
+    //mainly for delete
+    attachCardEventListeners();
 }
 
 function editCardContent(card, pokemon) {
@@ -80,13 +84,15 @@ function editCardContent(card, pokemon) {
     const cardBullets = card.querySelectorAll("li");
 
     //update the bullet points 
-    cardBullets[0].textContent = `Type: ${pokemon.Type}`;
-    cardBullets[1].textContent = `Total Stats: ${pokemon.Total}`;
-    cardBullets[2].textContent = `Generation: ${pokemon.Generation}`;
+    cardBullets[0].textContent = `Pokè ID: ${pokemon.Id}`;
+    cardBullets[1].textContent = `Type: ${pokemon.Type}`;
+    cardBullets[2].textContent = `Total Stats: ${pokemon.Total}`;
+
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards());
+document.addEventListener("DOMContentLoaded", showCards);
+
 
 //to filter pokemons by type
 const typeButtons = document.querySelectorAll(".typeBtn");
@@ -166,6 +172,37 @@ const searchInput = document.getElementById('pokeSearch');
 searchInput.addEventListener('input', () => {
     showCards();
   });
+
+
+//to delete each pokemon
+function deletePokemon(pokemons, deletedPokemon){
+
+    //pick out the id part first
+    const parts = deletedPokemon.split(":");
+    const deleteID = parseInt(parts[1].trim());
+
+    //find the pokemon with that id
+    const indexToDelete = allPokemons.findIndex(pokemon => {
+        return pokemon.Id == deleteID
+    })
+
+
+    //array splice method
+    //will delete 1 entry at index pokeID
+    pokemons.splice(indexToDelete, 1);
+}
+
+function attachCardEventListeners() {
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        card.addEventListener("click", () => {
+            const deletedPokemon = card.querySelector("li").innerText;
+            //console.log(pokemonID);
+            deletePokemon(allPokemons, deletedPokemon);
+            showCards(); 
+        });
+    });
+}
 
 window.quoteAlert = function(){
     console.log("Button Clicked!")
