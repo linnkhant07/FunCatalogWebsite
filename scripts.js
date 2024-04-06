@@ -30,14 +30,29 @@ const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprite
 
 
 // This function adds cards the page to display the data in the array
-function showCards(pokemons) {
+function showCards() {
+
+    let displayPokemons = []
+
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
+
+    //filter accordingly to what user has chosen
+    const typeButtons = document.querySelector('.typeButtons');
+    const typeToFilter = typeButtons.querySelector('.lastClicked').innerText;
+
+    displayPokemons = filterByType(allPokemons, typeToFilter)
+
+    //sort accordingly to what user has chosen
+    const statButtons = document.querySelector('.statButtons');
+    const statToSort = statButtons.querySelector('.lastClicked').innerText;
     
-    for (let i = 0; i < pokemons.length; i++) {
+    displayPokemons = sortByStat(displayPokemons, statToSort)
+    
+    for (let i = 0; i < displayPokemons.length; i++) {
         const nextCard = templateCard.cloneNode(true); // Copy the template card
-        editCardContent(nextCard, pokemons[i]); // Edit title and image
+        editCardContent(nextCard, displayPokemons[i]); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
         
     }
@@ -66,19 +81,19 @@ function editCardContent(card, pokemon) {
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards(allPokemons));
+document.addEventListener("DOMContentLoaded", showCards());
 
 //to filter pokemons by type
 const typeButtons = document.querySelectorAll(".typeBtn");
 
 //filtering by type
-function filterByType(type){
+function filterByType(pokemons, type){
 
     let filteredPokemons = []
 
-    if(type == "All") return allPokemons;
+    if(type == "All") return pokemons;
 
-    for(let pokemon of allPokemons){
+    for(let pokemon of pokemons){
         
         if(pokemon.Type.includes(type))
              filteredPokemons.push(pokemon)
@@ -88,7 +103,17 @@ function filterByType(type){
 
 typeButtons.forEach(btn => {
     btn.addEventListener("click", ()=>{
-        showCards(filterByType(btn.innerText))
+        
+
+        //remove the lastClicked class from all buttons
+        typeButtons.forEach(button => {
+            button.classList.remove("lastClicked");
+        });
+
+        //add the lastClicked class to the clicked button
+        btn.classList.add("lastClicked");
+
+        showCards()
     })
 })
 
@@ -96,10 +121,10 @@ typeButtons.forEach(btn => {
 const statButtons = document.querySelectorAll(".statBtn");
 
 //filtering by different stats
-window.sortByStat = function(stat){
+function  sortByStat(pokemons, stat){
 
     //spread operator -> copies allPokemons
-    let sortedPokemons = [...allPokemons]
+    let sortedPokemons = [...pokemons]
     sortedPokemons.sort((a,b)=>{
        return b[stat] - a[stat]
     })
@@ -109,7 +134,16 @@ window.sortByStat = function(stat){
 
 statButtons.forEach(btn => {
     btn.addEventListener("click", ()=>{
-        showCards(sortByStat(btn.innerText))
+
+        //remove the lastClicked class from all buttons
+        statButtons.forEach(button => {
+            button.classList.remove("lastClicked");
+        });
+
+        //add the lastClicked class to the clicked button
+        btn.classList.add("lastClicked");
+
+        showCards()
     })
 })
 
@@ -120,6 +154,6 @@ window.quoteAlert = function(){
 
 window.removeLastCard = function() {
     allPokemons.pop(); // Remove last item in titles array
-    showCards(allPokemons); // Call showCards again to refresh
+    showCards(); // Call showCards again to refresh
 }
 
