@@ -164,4 +164,8 @@ dialog #pokemonImage{
     .right-column {
         padding-left: 0;
     }
+
+    dialog #pokemonImage{
+        width: 70%;
+    }
 }
