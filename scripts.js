@@ -199,12 +199,8 @@ function deletePokemon(pokemons, deleteID){
 
 //for dialog box - show pokemon details
 const dialog = document.querySelector('dialog')
-const openDialog = document.querySelector('.openDialog')
 const closeDialog = document.querySelector('#closeDialog')
 
-openDialog.addEventListener("click", ()=>{
-    dialog.showModal();
-})
 closeDialog.addEventListener("click", ()=>{
     dialog.close();
 })
