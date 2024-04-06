@@ -73,6 +73,42 @@ button {
     margin: 5px;
 }
 
+.buttons-container {
+    display: flex; 
+}
+
+.details,
+.release {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+/* Gradient for the "Details" button */
+.details {
+    background: linear-gradient(135deg, #5c6bc0, #7986cb);
+    color: #fff;
+}
+
+
+/* Gradient for the "Release" button */
+.release {
+    background: linear-gradient(135deg, #ff1744, #d50000);
+    color: #fff;
+}
+
+/* Hover effect for buttons */
+.details:hover,
+.release:hover {
+    filter: brightness(1.1);
+}
+
 .typeBtn{
     background-color: red;
     border-radius: 20px;

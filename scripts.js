@@ -27,6 +27,8 @@
 //array of objects to hold pokemons
 import allPokemons from "./pokemons.js";
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
+
 
 
 // This function adds cards the page to display the data in the array
@@ -175,17 +177,13 @@ searchInput.addEventListener('input', () => {
 
 
 //to delete each pokemon
-function deletePokemon(pokemons, deletedPokemon){
+function deletePokemon(pokemons, deleteID){
 
-    //pick out the id part first
-    const parts = deletedPokemon.split(":");
-    const deleteID = parseInt(parts[1].trim());
 
     //find the pokemon with that id
     const indexToDelete = allPokemons.findIndex(pokemon => {
         return pokemon.Id == deleteID
     })
-
 
     //array splice method
     //will delete 1 entry at index pokeID
@@ -200,14 +198,31 @@ function attachCardEventListeners() {
             const deletedPokemon = card.querySelector("li").innerText;
             //console.log(pokemonID);
 
-            card.style.transition = "opacity 0.5s ease";
+            //pick out the id part first
+            const parts = deletedPokemon.split(":");
+            const deleteID = parseInt(parts[1].trim());
+
+            // Store the current scroll position
+            const scrollPosition = window.scrollY;
+
+
+            //speical release / delete effects
+            card.style.transition = "opacity 1s ease";
             card.style.opacity = 0;
+
+            const imgElement = card.querySelector('img');
+            imgElement.src = `${baseURL_back}${deleteID}.png`
+
             //apply fade-out transition effect
             setTimeout(() => {
                 
-                deletePokemon(allPokemons, deletedPokemon);
+                deletePokemon(allPokemons, deleteID);
                 showCards(); 
-            }, 500)
+
+                // Restore the scroll position after re-rendering
+                window.scrollTo(0, scrollPosition);
+
+            }, 1000)
             
             
         });
