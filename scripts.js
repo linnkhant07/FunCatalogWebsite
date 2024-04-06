@@ -41,13 +41,12 @@ let titles = [
 
 
 //array of objects to hold pokemons
-import pokemons from "./pokemons.js";
+import allPokemons from "./pokemons.js";
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-console.log(pokemons)
 
 
 // This function adds cards the page to display the data in the array
-function showCards() {
+function showCards(pokemons) {
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     const templateCard = document.querySelector(".card");
@@ -83,7 +82,32 @@ function editCardContent(card, pokemon) {
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+document.addEventListener("DOMContentLoaded", showCards(allPokemons));
+
+//to filter pokemons by type
+const typeButtons = document.querySelectorAll(".typeBtn");
+
+//filtering 
+window.filterByType = function(type){
+
+    let filteredPokemons = []
+
+    if(type == "All") return allPokemons;
+
+    for(let pokemon of allPokemons){
+        
+        if(pokemon.Type.includes(type))
+             filteredPokemons.push(pokemon)
+    }
+
+    return filteredPokemons;
+};
+
+typeButtons.forEach(btn => {
+    btn.addEventListener("click", ()=>{
+        showCards(filterByType(btn.innerText))
+    })
+})
 
 window.quoteAlert = function(){
     console.log("Button Clicked!")
@@ -91,6 +115,7 @@ window.quoteAlert = function(){
 }
 
 window.removeLastCard = function() {
-    pokemons.pop(); // Remove last item in titles array
-    showCards(); // Call showCards again to refresh
+    allPokemons.pop(); // Remove last item in titles array
+    showCards(allPokemons); // Call showCards again to refresh
 }
+

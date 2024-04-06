@@ -1,4 +1,4 @@
-let pokemons = [
+let allPokemons = [
     { "Id": 1, "Name": "Bulbasaur", "Type": ["Grass", "Poison"], "Total": 318, "HP": 45, "Attack": 49, "Defense": 49, "Sp. Atk": 65, "Sp. Def": 65, "Speed": 45, "Generation": 1, "Description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon." },
     { "Id": 2, "Name": "Ivysaur", "Type": ["Grass", "Poison"], "Total": 405, "HP": 60, "Attack": 62, "Defense": 63, "Sp. Atk": 80, "Sp. Def": 80, "Speed": 60, "Generation": 1, "Description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs." },
     { "Id": 3, "Name": "Venusaur", "Type": ["Grass", "Poison"], "Total": 525, "HP": 80, "Attack": 82, "Defense": 83, "Sp. Atk": 100, "Sp. Def": 100, "Speed": 80, "Generation": 1, "Description": "Its plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight." },
@@ -28,4 +28,4 @@ let pokemons = [
     { "Id": 27, "Name": "Sandshrew", "Type": ["Ground"], "Total": 300, "HP": 50, "Attack": 75, "Defense": 85, "Sp. Atk": 20, "Sp. Def": 30, "Speed": 40, "Generation": 1, "Description": "Sandshrew's body is configured to absorb water without waste, enabling it to survive in an arid desert. This Pokémon curls up to protect itself from its enemies." }
 ];
 
-export default pokemons
+export default allPokemons
