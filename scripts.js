@@ -228,7 +228,7 @@ sortDirectionBtn.addEventListener("click", ()=>{
     //toggle the direction button
     if(sortHighToLow){
         
-        sortDirectionBtn.innerHTML = "Low to High &uarr;"
+        sortDirectionBtn.innerHTML = "Low to High &darr;"
         sortHighToLow = false;
     } else {
         sortDirectionBtn.innerHTML = "High to Low &uarr;"
