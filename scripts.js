@@ -32,9 +32,10 @@ let displayPokemons = allPokemons
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
 const baseURL_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+let pageChanged = false
 
 //numberr of items to load initially and each time the button is clicked
-const itemsPerPage = 25;
+const itemsPerPage = 10;
 let currentPage = 1;
 
 function updateDisplayPokemons(){
@@ -56,7 +57,26 @@ function updateDisplayPokemons(){
     
     displayPokemons = sortByStat(displayPokemons, statToSort)
 
-    currentPage = 1;
+}
+
+function updateNavButtons(){
+
+    if(currentPage == 1){
+        prevPageBtn.style.display = "None";
+    }
+
+    else{
+        prevPageBtn.style.display = "Block";
+    }
+
+    if(currentPage < Math.ceil(displayPokemons.length / itemsPerPage)){
+        nextPageBtn.style.display = "Block";
+    }
+
+    else{
+        nextPageBtn.style.display = "None";
+    }
+    
 }
 
 // This function adds cards the page to display the data in the array
@@ -81,14 +101,17 @@ function showMoreCards() {
         
     }
 
-    //currentPage++;
-    // Hide the "Load More" button if all items have been loaded
-    if (endIndex >= displayPokemons.length) {
-        document.querySelector('#loadMoreBtn').style.display = 'none';
-    }
+    updateNavButtons();
 
-    // Restore the scroll position after re-rendering
-    window.scrollTo(0, scrollPosition);
+
+    if(!pageChanged){
+        // Restore the scroll position after re-rendering
+         window.scrollTo(0, scrollPosition);
+    }
+    else{
+        window.scrollTo(0, 300);
+        pageChanged = false;
+    }
 
     //reattach event listeners to new cards
     //mainly for delete
@@ -137,13 +160,15 @@ function filterByType(pokemons, type){
         if(pokemon.Type.includes(type))
              filteredPokemons.push(pokemon)
     }
+
+    
     return filteredPokemons;
 };
 
 typeButtons.forEach(btn => {
     btn.addEventListener("click", ()=>{
         
-
+        
         //remove the lastClicked class from all buttons
         typeButtons.forEach(button => {
             button.classList.remove("lastClicked");
@@ -152,6 +177,8 @@ typeButtons.forEach(btn => {
         //add the lastClicked class to the clicked button
         btn.classList.add("lastClicked");
 
+        currentPage = 1;
+        playClickSound();
         updateDisplayPokemons();
         showMoreCards()
     })
@@ -183,6 +210,8 @@ statButtons.forEach(btn => {
         //add the lastClicked class to the clicked button
         btn.classList.add("lastClicked");
 
+        currentPage = 1;
+        playClickSound();
         updateDisplayPokemons();
         showMoreCards()
     })
@@ -200,6 +229,8 @@ function filterByName(pokemons, searchQuery) {
 
 const searchInput = document.getElementById('pokeSearch');
 searchInput.addEventListener('input', () => {
+
+    currentPage = 1;
     updateDisplayPokemons();
     showMoreCards();
   });
@@ -354,20 +385,28 @@ function playClickSound() {
     hoverSound.play();
 }
 
-const typeBtns = document.querySelectorAll(".typeBtn")
-typeBtns.forEach(btn => {
-    btn.addEventListener("click", playClickSound);
-});
 
-const statBtns = document.querySelectorAll(".statBtn")
-statBtns.forEach(btn => {
-    btn.addEventListener("click", playClickSound);
-});
 
-const loadMoreBtn = document.querySelector("#loadMoreBtn")
-loadMoreBtn.addEventListener("click", ()=>{
+// Event listener for previous page button
+const prevPageBtn = document.querySelector("#prevPageBtn")
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      pageChanged = true;
+      playClickSound();
+      showMoreCards();
+    }
+
+});
+  
+// Event listener for next page button
+const nextPageBtn = document.querySelector("#nextPageBtn")
+nextPageBtn.addEventListener('click', () => {
+if (currentPage < Math.ceil(displayPokemons.length / itemsPerPage)) {
     currentPage++;
+    pageChanged = true;
+    playClickSound();
     showMoreCards();
-})
-
+}
+});
 
