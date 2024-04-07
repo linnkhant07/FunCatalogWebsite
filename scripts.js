@@ -225,6 +225,18 @@ function updateModalBox(pokemonID){
     dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
 }
 
+//functions to play hover sound effect
+function playHoverSound() {
+    const hoverSound = document.getElementById("hoverSound");
+    hoverSound.play();
+}
+
+// Add event listeners to card elements
+const cards = document.querySelectorAll(".card");
+cards.forEach(card => {
+    card.addEventListener("mouseenter", playHoverSound);
+});
+
 function playPokemonSound(pokemonID) {
 
     const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
@@ -262,8 +274,6 @@ function attachCardEventListeners() {
             
         });
     })
-    
-
 
 
     //release buttons
@@ -305,5 +315,28 @@ function attachCardEventListeners() {
         });
     });
 
+    // Add event listeners to card elements
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", playHoverSound);
+    });
+
 }
+
+//functions to play hover sound effect
+function playClickSound() {
+    const hoverSound = document.getElementById("clickSound");
+    hoverSound.play();
+}
+
+const typeBtns = document.querySelectorAll(".typeBtn")
+typeBtns.forEach(btn => {
+    btn.addEventListener("click", playClickSound);
+});
+
+const statBtns = document.querySelectorAll(".statBtn")
+statBtns.forEach(btn => {
+    btn.addEventListener("click", playClickSound);
+});
+
 
