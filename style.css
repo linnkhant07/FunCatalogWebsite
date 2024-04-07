@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background: #003554;
-    font-family: "Press Start 2P";
+    font-family: "Press Start 2P", "Verdana";
 }
 
 
@@ -13,7 +13,8 @@ body {
 }
 
 .main-header h1{
-    font-family: "Bungee Spice";
+    margin-top: 10px;
+    font-family: "Bungee Spice", "Verdana";
 }
 
 

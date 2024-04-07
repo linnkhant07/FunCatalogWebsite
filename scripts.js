@@ -26,26 +26,19 @@
 
 //array of objects to hold pokemons
 import allPokemons from "./pokemons.js";
+
+//this array stores pokemons to display
+let displayPokemons = allPokemons
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
 const baseURL_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
 
+//numberr of items to load initially and each time the button is clicked
+const itemsPerPage = 25;
+let currentPage = 1;
 
-
-
-// This function adds cards the page to display the data in the array
-function showCards() {
-
-    let displayPokemons = []
-
-    // Store the current scroll position
-    const scrollPosition = window.scrollY;
+function updateDisplayPokemons(){
     
-
-    const cardContainer = document.getElementById("card-container");
-    cardContainer.innerHTML = "";
-    const templateCard = document.querySelector(".card");
-
     //filter accordingly to pokemon type
     const typeButtons = document.querySelector('.typeButtons');
     const typeToFilter = typeButtons.querySelector('.lastClicked').innerText;
@@ -62,12 +55,36 @@ function showCards() {
     const statToSort = statButtons.querySelector('.lastClicked').innerText;
     
     displayPokemons = sortByStat(displayPokemons, statToSort)
+
+    currentPage = 1;
+}
+
+// This function adds cards the page to display the data in the array
+function showMoreCards() {
+
+    // Store the current scroll position
+    const scrollPosition = window.scrollY;
+
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+    const templateCard = document.querySelector(".card");
+
+    //display only a batch of pokemons
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayBatch = displayPokemons.slice(startIndex, endIndex);
     
-    for (let i = 0; i < displayPokemons.length; i++) {
+    for (let i = 0; i < displayBatch.length; i++) {
         const nextCard = templateCard.cloneNode(true); // Copy the template card
-        editCardContent(nextCard, displayPokemons[i]); // Edit title and image
+        editCardContent(nextCard, displayBatch[i]); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
         
+    }
+
+    //currentPage++;
+    // Hide the "Load More" button if all items have been loaded
+    if (endIndex >= displayPokemons.length) {
+        document.querySelector('#loadMoreBtn').style.display = 'none';
     }
 
     // Restore the scroll position after re-rendering
@@ -102,7 +119,7 @@ function editCardContent(card, pokemon) {
 }
 
 // This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+document.addEventListener("DOMContentLoaded", showMoreCards);
 
 
 //to filter pokemons by type
@@ -135,7 +152,8 @@ typeButtons.forEach(btn => {
         //add the lastClicked class to the clicked button
         btn.classList.add("lastClicked");
 
-        showCards()
+        updateDisplayPokemons();
+        showMoreCards()
     })
 })
 
@@ -165,7 +183,8 @@ statButtons.forEach(btn => {
         //add the lastClicked class to the clicked button
         btn.classList.add("lastClicked");
 
-        showCards()
+        updateDisplayPokemons();
+        showMoreCards()
     })
 })
 
@@ -181,7 +200,8 @@ function filterByName(pokemons, searchQuery) {
 
 const searchInput = document.getElementById('pokeSearch');
 searchInput.addEventListener('input', () => {
-    showCards();
+    updateDisplayPokemons();
+    showMoreCards();
   });
 
 
@@ -311,7 +331,8 @@ function attachCardEventListeners() {
             setTimeout(() => {
                 
                 deletePokemon(allPokemons, deleteID);
-                showCards(); 
+                updateDisplayPokemons();
+                showMoreCards(); 
 
             }, 1000)
             
@@ -342,5 +363,11 @@ const statBtns = document.querySelectorAll(".statBtn")
 statBtns.forEach(btn => {
     btn.addEventListener("click", playClickSound);
 });
+
+const loadMoreBtn = document.querySelector("#loadMoreBtn")
+loadMoreBtn.addEventListener("click", ()=>{
+    currentPage++;
+    showMoreCards();
+})
 
 
