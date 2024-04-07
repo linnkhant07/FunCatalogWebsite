@@ -32,10 +32,11 @@ let displayPokemons = allPokemons
 const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
 const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
 const baseURL_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+let sortHighToLow = false
 let pageChanged = false
 
 //numberr of items to load initially and each time the button is clicked
-const itemsPerPage = 10;
+const itemsPerPage = 15;
 let currentPage = 1;
 
 function updateDisplayPokemons(){
@@ -112,6 +113,8 @@ function showMoreCards() {
         window.scrollTo(0, 300);
         pageChanged = false;
     }
+
+    //console.log("page number is ", currentPage)
 
     //reattach event listeners to new cards
     //mainly for delete
@@ -193,7 +196,9 @@ function  sortByStat(pokemons, stat){
     //spread operator -> copies allPokemons
     let sortedPokemons = [...pokemons]
     sortedPokemons.sort((a,b)=>{
-       return b[stat] - a[stat]
+
+       if(sortHighToLow) {return b[stat] - a[stat]}
+       else return a[stat] - b[stat]
     })
 
     return sortedPokemons;
@@ -215,6 +220,27 @@ statButtons.forEach(btn => {
         updateDisplayPokemons();
         showMoreCards()
     })
+})
+
+const sortDirectionBtn = document.querySelector(".sortDirectionBtn")
+sortDirectionBtn.addEventListener("click", ()=>{
+
+    //toggle the direction button
+    if(sortHighToLow){
+        
+        sortDirectionBtn.innerHTML = "Low to High &uarr;"
+        sortHighToLow = false;
+    } else {
+        sortDirectionBtn.innerHTML = "High to Low &uarr;"
+        sortHighToLow = true;
+    }
+
+    currentPage = 1;
+
+    playClickSound();
+    updateDisplayPokemons();
+    showMoreCards();
+
 })
 
 //for searching pokemons with name
