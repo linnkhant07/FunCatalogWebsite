@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background: #003554;
-
+    font-family: "Press Start 2P";
 }
 
 
@@ -13,7 +13,6 @@ body {
 }
 
 .main-header h1{
-    color: white;
     font-family: "Bungee Spice";
 }
 
@@ -137,7 +136,7 @@ button {
     color: rgba(255, 255, 255, 0.882); /* Adjust color as needed */
     margin-bottom: 20px;
     margin-left: 20px;
-    font-family: "Press Start 2P";
+
 
 }
 
@@ -217,9 +216,18 @@ dialog #pokemonImage{
     font-family: "Press Start 2P";
 }
 
+.modal-content .right-column{
+    font-family: 'Verdana';
+}
+
 
 /* Media query for smaller screens */
 @media screen and (max-width: 768px) {
+
+    .main-header h1{
+        font-size: 5.5em;
+    }
+
     .modal-content {
         flex-direction: column;
     }
@@ -235,5 +243,14 @@ dialog #pokemonImage{
 
     dialog #pokemonImage{
         width: 70%;
+    }
+
+    .search-bar{
+        margin-bottom: 40px;
+    }
+
+    .typeButtons,
+    .statButtons{
+        margin-bottom: 40px;
     }
 }
