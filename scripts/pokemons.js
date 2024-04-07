@@ -1,3 +1,7 @@
+//100 pokemons
+//CSV File Source: https://github.com/lgreski/pokemonData/blob/master/Pokemon.csv
+//CSV entries turned into an array of objects with the help of ChatGPT
+
 let allPokemons = [
     { "Id": 1, "Name": "Bulbasaur", "Type": ["Grass", "Poison"], "Total": 318, "HP": 45, "Attack": 49, "Defense": 49, "Sp. Atk": 65, "Sp. Def": 65, "Speed": 45, "Generation": 1, "Description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon." },
     { "Id": 2, "Name": "Ivysaur", "Type": ["Grass", "Poison"], "Total": 405, "HP": 60, "Attack": 62, "Defense": 63, "Sp. Atk": 80, "Sp. Def": 80, "Speed": 60, "Generation": 1, "Description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs." },
