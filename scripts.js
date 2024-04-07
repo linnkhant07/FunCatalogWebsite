@@ -292,14 +292,14 @@ function updateModalBox(pokemonID){
     //destructure all the properties from pokemon object
     const { Name, Id, Total, HP, Attack, "Sp. Atk": SpAtk, Defense, "Sp. Def": SpDef,  Speed, Description} = pokemon
     
-    dialog.querySelector('#pokemonName').textContent = Name;
-    dialog.querySelector('#pokemonId').textContent = `ID: ${Id}`;
-    dialog.querySelector('#totalStats').textContent = `Total Stats: ${Total}`;
-    dialog.querySelector('#hp').textContent = `HP: ${HP}`;
-    dialog.querySelector('#attack').textContent = `Attack: ${Attack}, Sp. Atk: ${SpAtk}`;
-    dialog.querySelector('#defense').textContent = `Defense: ${Defense}, Sp. Def: ${SpDef}`;
-    dialog.querySelector('#speed').textContent = `Speed: ${Speed}`;
-    dialog.querySelector('#pokemonDescription').textContent = Description;
+    dialog.querySelector('#pokemonName').innerHTML = Name;
+    dialog.querySelector('#pokemonId').innerHTML = `<b>ID:</b> ${Id}`;
+    dialog.querySelector('#totalStats').innerHTML = `<b>Total Stats:</b> ${Total}`;
+    dialog.querySelector('#hp').innerHTML = `<b>HP:</b> ${HP}`;
+    dialog.querySelector('#attack').innerHTML = `<b>Attack:</b> ${Attack}, <b>Sp. Atk:</b> ${SpAtk}`;
+    dialog.querySelector('#defense').innerHTML = `<b>Defense:</b> ${Defense}, <b>Sp. Def:</b> ${SpDef}`;
+    dialog.querySelector('#speed').innerHTML = `<b>Speed:</b> ${Speed}`;
+    dialog.querySelector('#pokemonDescription').innerHTML = `${Description}`;
     dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
 }
 
