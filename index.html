@@ -3,9 +3,11 @@
 
 <head>
     <title>Linn's Pokèdex</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles">
+    <meta name="description" content="Linn's Pokedex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Honk&family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&family=Rubik+Scribble&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
-    
 
 </head>
 
@@ -13,16 +15,14 @@
     <header class="main-header">
         <h1 class="title">Mini Pokèdex</h1>
     </header>
+
     <div>
-        
-        <div class="search">
-            <label for="pokeSearch">Search a Pokemon:</label>
-            <input type="search" id="pokeSearch" name="poke-search" />
 
-            <button>Search</button>
-        </div>
+    <div class="search-bar">
+        <input type="text" id="pokeSearch" placeholder="SEARCH ANY POKEMON">
+    </div>
 
-        <h2>Filter POKEMONS BY TYPE</h2>
+        <h2 class="filter-label">FILTER POKEMONS BY TYPE</h2>
         <div class="typeButtons">
             <button class="typeBtn lastClicked">
                 All
@@ -56,7 +56,7 @@
             </button>
         </div>
         
-        <h2>SORT POKEMONS BY STATS</h2>
+        <h2 class="filter-label">SORT POKEMONS BY STATS</h2>
         <div class="statButtons">
             <button class="statBtn lastClicked">
                 None
@@ -108,7 +108,7 @@
     </div>
     <div class="card" style="display: none;">
         <div class="card-content">
-            <h2>TV Show Title</h2>
+            <h2>Pokemon Name</h2>
             <img src="" alt="TV Show Poster">
             <ul>
                 <li>Bullet Point 1</li>

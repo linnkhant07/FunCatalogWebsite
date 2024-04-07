@@ -204,6 +204,7 @@ const dialog = document.querySelector('dialog')
 const closeDialog = document.querySelector('#closeDialog')
 
 closeDialog.addEventListener("click", ()=>{
+    playClickSound();
     dialog.close();
 })
 
@@ -268,7 +269,10 @@ function attachCardEventListeners() {
 
             updateModalBox(pokemonID);
 
-            playPokemonSound(pokemonID);
+            setTimeout(()=>{
+                playPokemonSound(pokemonID);
+            },250)
+            
             dialog.showModal();
             
             
