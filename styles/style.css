@@ -8,7 +8,6 @@ body {
 
 
 .main-header {
-
     padding-bottom: 10px;
 }
 
@@ -26,6 +25,8 @@ body {
     font-weight: normal;
     color: white;
 }
+
+/* -------------------------cards------------------------- */
 
 #card-container {
     display: grid;
@@ -112,7 +113,35 @@ button {
     transition: background-color 0.3s;
 }
 
-/* Gradient for the "Details" button */
+/* -------------------------dialog box------------------------- */
+/*for modal*/
+.modal-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-column {
+    flex: 1;
+    text-align: center;
+}
+
+.right-column {
+    flex: 1;
+    padding-left: 20px;
+    font-family: 'Verdana';
+}
+
+/* Define the size of the dialog box */
+dialog {
+    width: 70%; /* Set a percentage-based width */
+    max-width: 700px; /* Set a maximum width */
+    overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}
+
+dialog #pokemonImage{
+    width: 100%;
+}
+
 .details {
     background: linear-gradient(135deg, #5c6bc0, #7986cb);
     color: #fff;
@@ -131,7 +160,7 @@ button {
     filter: brightness(1.1);
 }
 
-
+/* -------------------------sort/filter buttons------------------------- */
 .filter-label{
     font-size: 18px;
     color: rgba(255, 255, 255, 0.882); /* Adjust color as needed */
@@ -175,37 +204,7 @@ button {
 
 
 
-
-/*for modal*/
-.modal-content {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-column {
-    flex: 1;
-    text-align: center;
-}
-
-.right-column {
-    flex: 1;
-    padding-left: 20px;
-}
-
-/* Define the size of the dialog box */
-dialog {
-    width: 70%; /* Set a percentage-based width */
-    max-width: 700px; /* Set a maximum width */
-    overflow-y: auto; /* Add vertical scrollbar if content overflows */
-}
-
-dialog #pokemonImage{
-    width: 100%;
-}
-
-
-
-
+/* -------------------------search bar------------------------- */
 /* Search bar styles */
 .search-bar {
     margin-top: 20px;
@@ -228,10 +227,7 @@ dialog #pokemonImage{
     font-family: "Press Start 2P";
 }
 
-.modal-content .right-column{
-    font-family: 'Verdana';
-}
-
+/* -------------------------nav btns------------------------- */
 .navBtn-container {
     display: flex;
     justify-content: center; 
@@ -250,6 +246,8 @@ dialog #pokemonImage{
     background-color: rgb(226, 151, 11);
 }
 
+
+/* -------------------------type buttons------------------------- */
 /* for type displays in cards */
 /* Styles for type spans */
 .typeSpan {
@@ -307,34 +305,34 @@ background-color: #DAA520;
 color: #fff;
   }
 
-  .typeRock {
-    background-color: #A9A9A9;
-    color: #fff;
-  }
+.typeRock {
+background-color: #A9A9A9;
+color: #fff;
+}
 
-  .typeFairy {
-    background-color: #FF69B4;
-    color: #fff;
-  }
-  
-  .typeNormal {
-    background-color: #A9A9A9;
-    color: #fff;
-  }
+.typeFairy {
+background-color: #FF69B4;
+color: #fff;
+}
 
-  .typeIce {
-    background-color: #98D8D8; /* Light blue */
-    color: #fff; /* Black text */
+.typeNormal {
+background-color: #A9A9A9;
+color: #fff;
+}
+
+.typeIce {
+background-color: #98D8D8; /* Light blue */
+color: #fff; /* Black text */
 }
 
 .typeGhost {
-    background-color: #705898; /* Purple */
-    color: #fff; /* White text */
+background-color: #705898; /* Purple */
+color: #fff; /* White text */
 }
 
 .typePsychic {
-    background-color: #F85888; /* Pink */
-    color: #fff; /* Black text */
+background-color: #F85888; /* Pink */
+color: #fff; /* Black text */
 }
 
 /* Media query for smaller screens */
