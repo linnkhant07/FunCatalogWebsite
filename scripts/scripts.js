@@ -19,7 +19,72 @@ let pageChanged = false
 const itemsPerPage = 15;
 let currentPage = 1;
 
-//post-condition: displayPokemons array is updated according to filter and sort options
+//-------------------------DATA OPERATION FUNCTIONS-------------------------
+
+//postcondition: return a type-filtered array of pokemons
+function filterByName(pokemons, searchQuery) {
+
+    const filteredPokemons = pokemons.filter(pokemon =>
+      pokemon.Name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return filteredPokemons;
+};
+
+//postcondition: return a type-filtered array of pokemons
+function filterByType(pokemons, type){
+
+    let filteredPokemons = []
+
+    if(type == "All") return pokemons;
+
+    /* BOTH WAYS WORK THE SAME BUT I WANTED TO USE THE OTHER METHOD THIS TIME
+    else{
+        filteredPokemons = pokemons.filter(pokemon => {
+            return pokemon.Type.includes(type)
+        })
+    }*/
+
+    for(let pokemon of pokemons){
+
+        if(pokemon.Type.includes(type))
+             filteredPokemons.push(pokemon)
+    }
+
+    return filteredPokemons;
+};
+
+//postcondition: return a stats-filtered array of pokemons
+function  sortByStat(pokemons, stat){
+    pokemons.sort((a,b)=>{
+
+       if(sortHighToLow) {return b[stat] - a[stat]}
+       else return a[stat] - b[stat]
+    })
+
+    return pokemons;
+}
+
+//postcondition: deletes a pokemon and returns the array
+function deletePokemon(pokemons, deleteID){
+
+
+    //find the pokemon with that id
+    const indexToDelete = pokemons.findIndex(pokemon => {
+        return pokemon.Id == deleteID
+    })
+
+    //array splice method
+    //will delete 1 entry at index pokeID
+    pokemons.splice(indexToDelete, 1);
+}
+
+//-------------------------------------------------------------------
+
+
+//-------------------------DISPLAY FUNCTIONS-------------------------
+
+//post-condition: displayPokemons array is updated after data operations
 function updateDisplayPokemons(){
     
     //filter with pokemon type
@@ -41,7 +106,7 @@ function updateDisplayPokemons(){
 
 }
 
-//post-condition: adds cards the page to display the data in the displayPokemons array
+//post-condition: adds cards to the page to display the data in the displayPokemons array
 function showMoreCards() {
 
     //store the current scroll position 
@@ -74,13 +139,12 @@ function showMoreCards() {
         pageChanged = false;
     }
 
-    //console.log("page number is ", currentPage)
-
     //reattach event listeners to new cards
     attachCardEventListeners();
 }
 
-
+//pre-conditions: card template and pokemon object are passed
+//post-condition: adds pokemon data to the card
 function editCardContent(card, pokemon) {
     card.style.display = "block";
 
@@ -104,42 +168,11 @@ function editCardContent(card, pokemon) {
 
 }
 
-//to filter pokemons by type
-const typeButtons = document.querySelectorAll(".typeBtn");
+//-----------------------------------------------------------------
 
-//postcondition: return a type-filtered array of pokemons
-function filterByType(pokemons, type){
+//-------------------------EVENT LISTENERS-------------------------
 
-    let filteredPokemons = []
-
-    if(type == "All") return pokemons;
-
-    /* BOTH WAYS WORK THE SAME BUT I WANTED TO USE THE OTHER METHOD THIS TIME
-    else{
-        filteredPokemons = pokemons.filter(pokemon => {
-            return pokemon.Type.includes(type)
-        })
-    }*/
-
-    for(let pokemon of pokemons){
-
-        if(pokemon.Type.includes(type))
-             filteredPokemons.push(pokemon)
-    }
-
-    return filteredPokemons;
-};
-
-//postcondition: return a type-filtered array of pokemons
-function filterByName(pokemons, searchQuery) {
-
-    const filteredPokemons = pokemons.filter(pokemon =>
-      pokemon.Name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    return filteredPokemons;
-}
-
+//search bar
 const searchInput = document.getElementById('pokeSearch');
 searchInput.addEventListener('input', () => {
 
@@ -148,21 +181,29 @@ searchInput.addEventListener('input', () => {
     showMoreCards();
 });
 
+//to filter pokemons by type
+const typeButtons = document.querySelectorAll(".typeBtn");
+typeButtons.forEach(btn => {
+    btn.addEventListener("click", ()=>{
+        
+        
+        //remove the lastClicked class from all buttons
+        typeButtons.forEach(button => {
+            button.classList.remove("lastClicked");
+        });
 
-//sort by stats
-const statButtons = document.querySelectorAll(".statBtn");
+        //add the lastClicked class to the clicked button
+        btn.classList.add("lastClicked");
 
-//postcondition: return a stats-filtered array of pokemons
-function  sortByStat(pokemons, stat){
-    pokemons.sort((a,b)=>{
-
-       if(sortHighToLow) {return b[stat] - a[stat]}
-       else return a[stat] - b[stat]
+        currentPage = 1;
+        playClickSound();
+        updateDisplayPokemons();
+        showMoreCards()
     })
+})
 
-    return pokemons;
-}
-
+//statButtons
+const statButtons = document.querySelectorAll(".statBtn");
 statButtons.forEach(btn => {
     btn.addEventListener("click", ()=>{
 
@@ -181,6 +222,7 @@ statButtons.forEach(btn => {
     })
 })
 
+//sort direction
 const sortDirectionBtn = document.querySelector(".sortDirectionBtn")
 sortDirectionBtn.addEventListener("click", ()=>{
 
@@ -202,11 +244,50 @@ sortDirectionBtn.addEventListener("click", ()=>{
 
 })
 
+//for dialog box - show pokemon details
+const dialog = document.querySelector('dialog')
+const closeDialog = document.querySelector('#closeDialog')
+
+closeDialog.addEventListener("click", ()=>{
+    playClickSound();
+    dialog.close();
+})
+
+// Event listener for previous page button
+const prevPageBtn = document.querySelector("#prevPageBtn")
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      pageChanged = true;
+      playClickSound();
+      showMoreCards();
+    }
+
+});
+  
+// Event listener for next page button
+const nextPageBtn = document.querySelector("#nextPageBtn")
+nextPageBtn.addEventListener('click', () => {
+if (currentPage < Math.ceil(displayPokemons.length / itemsPerPage)) {
+    currentPage++;
+    pageChanged = true;
+    playClickSound();
+    showMoreCards();
+}
+});
+
+// Add event listeners to card elements
+const cards = document.querySelectorAll(".card");
+cards.forEach(card => {
+    card.addEventListener("mouseenter", playHoverSound);
+});
 
 
+//----------------------------------------------------------------
 
+//---------------------------UTILITIES----------------------------
 
-
+//postcondition: the visibility of next and prev buttons are updated
 function updateNavButtons(){
 
     if(currentPage == 1){
@@ -227,59 +308,7 @@ function updateNavButtons(){
     
 }
 
-
-
-
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showMoreCards);
-
-
-
-
-typeButtons.forEach(btn => {
-    btn.addEventListener("click", ()=>{
-        
-        
-        //remove the lastClicked class from all buttons
-        typeButtons.forEach(button => {
-            button.classList.remove("lastClicked");
-        });
-
-        //add the lastClicked class to the clicked button
-        btn.classList.add("lastClicked");
-
-        currentPage = 1;
-        playClickSound();
-        updateDisplayPokemons();
-        showMoreCards()
-    })
-})
-
-
-//to delete each pokemon
-function deletePokemon(pokemons, deleteID){
-
-
-    //find the pokemon with that id
-    const indexToDelete = allPokemons.findIndex(pokemon => {
-        return pokemon.Id == deleteID
-    })
-
-    //array splice method
-    //will delete 1 entry at index pokeID
-    pokemons.splice(indexToDelete, 1);
-}
-
-//for dialog box - show pokemon details
-const dialog = document.querySelector('dialog')
-const closeDialog = document.querySelector('#closeDialog')
-
-closeDialog.addEventListener("click", ()=>{
-    playClickSound();
-    dialog.close();
-})
-
-//update the modal(details) box according to the clicked pokemon
+//postcondition: update the modal(details) box according to the clicked pokemon
 function updateModalBox(pokemonID){
 
     const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
@@ -309,12 +338,6 @@ function playHoverSound() {
     hoverSound.play();
 }
 
-// Add event listeners to card elements
-const cards = document.querySelectorAll(".card");
-cards.forEach(card => {
-    card.addEventListener("mouseenter", playHoverSound);
-});
-
 function playPokemonSound(pokemonID) {
 
     const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
@@ -326,6 +349,13 @@ function playPokemonSound(pokemonID) {
     pokemonSound.volume = 0.2;
     pokemonSound.play();
 }
+
+//functions to play hover sound effect
+function playClickSound() {
+    const hoverSound = document.getElementById("clickSound");
+    hoverSound.play();
+}
+
 
 function attachCardEventListeners() {
 
@@ -405,34 +435,10 @@ function attachCardEventListeners() {
 
 }
 
-//functions to play hover sound effect
-function playClickSound() {
-    const hoverSound = document.getElementById("clickSound");
-    hoverSound.play();
-}
+//----------------------------------------------------------------
 
+//---------------------------DOM IS LOADED----------------------------
 
-
-// Event listener for previous page button
-const prevPageBtn = document.querySelector("#prevPageBtn")
-prevPageBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      pageChanged = true;
-      playClickSound();
-      showMoreCards();
-    }
-
-});
-  
-// Event listener for next page button
-const nextPageBtn = document.querySelector("#nextPageBtn")
-nextPageBtn.addEventListener('click', () => {
-if (currentPage < Math.ceil(displayPokemons.length / itemsPerPage)) {
-    currentPage++;
-    pageChanged = true;
-    playClickSound();
-    showMoreCards();
-}
-});
+// This calls the addCards() function when the page is first loaded
+document.addEventListener("DOMContentLoaded", showMoreCards);
 
