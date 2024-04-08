@@ -290,10 +290,9 @@ function updateModalBox(pokemonID){
 
     const pokemon = allPokemons.find(pokemon => pokemon.Id == pokemonID)
     //destructure all the properties from pokemon object
-    const { Name, Id, Total, HP, Attack, "Sp. Atk": SpAtk, Defense, "Sp. Def": SpDef,  Speed, Description} = pokemon
+    const { Name, Id, Type, Total, HP, Attack, "Sp. Atk": SpAtk, Defense, "Sp. Def": SpDef,  Speed, Description} = pokemon
     
     dialog.querySelector('#pokemonName').innerHTML = Name;
-    dialog.querySelector('#pokemonId').innerHTML = `<b>ID:</b> ${Id}`;
     dialog.querySelector('#totalStats').innerHTML = `<b>Total Stats:</b> ${Total}`;
     dialog.querySelector('#hp').innerHTML = `<b>HP:</b> ${HP}`;
     dialog.querySelector('#attack').innerHTML = `<b>Attack:</b> ${Attack}, <b>Sp. Atk:</b> ${SpAtk}`;
@@ -301,6 +300,13 @@ function updateModalBox(pokemonID){
     dialog.querySelector('#speed').innerHTML = `<b>Speed:</b> ${Speed}`;
     dialog.querySelector('#pokemonDescription').innerHTML = `${Description}`;
     dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
+
+    if(Type[1]){
+        dialog.querySelector('#pokemonType').innerHTML = `<b>Type:</b> <span class="typeSpan type${Type[0]}"> ${Type[0]} </span> <span class="typeSpan  type${Type[1]}"> ${Type[1]} </span>`;
+    }
+    else{
+        dialog.querySelector('#pokemonType').innerHTML = `<b>Type:</b> <span class="typeSpan type${Type[0]}"> ${Type[0]} </span>`;
+    }
 }
 
 //functions to play hover sound effect

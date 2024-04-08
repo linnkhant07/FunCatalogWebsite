@@ -48,5 +48,6 @@ To gather information about pokemon: https://github.com/lgreski/pokemonData/blob
 PokeAPI: https://pokeapi.co/docs/v2#pokemon-section
 For sorting + JavaScript Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 How to use Modal Boxes in HTML: https://blog.webdevsimplified.com/2023-04/html-dialog/
+Fonts: Google Fonts
 
 
