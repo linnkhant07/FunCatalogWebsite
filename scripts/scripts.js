@@ -19,20 +19,21 @@ let pageChanged = false
 const itemsPerPage = 15;
 let currentPage = 1;
 
+//post-condition: displayPokemons array is updated according to filter and sort options
 function updateDisplayPokemons(){
     
-    //filter accordingly to pokemon type
+    //filter with pokemon type
     const typeButtons = document.querySelector('.typeButtons');
     const typeToFilter = typeButtons.querySelector('.lastClicked').innerText;
 
     displayPokemons = filterByType(allPokemons, typeToFilter)
 
-    //filter accordingly to search query
+    //filter with search query
     const searchBox = document.querySelector('#pokeSearch');
     const searchQuery = searchBox.value.trim(); //trim whitespace
     displayPokemons = filterByName(displayPokemons, searchQuery);
 
-    //sort accordingly to  pokemon stats
+    //sort with pokemon stats
     const statButtons = document.querySelector('.statButtons');
     const statToSort = statButtons.querySelector('.lastClicked').innerText;
     
@@ -40,37 +41,17 @@ function updateDisplayPokemons(){
 
 }
 
-function updateNavButtons(){
-
-    if(currentPage == 1){
-        prevPageBtn.style.display = "None";
-    }
-
-    else{
-        prevPageBtn.style.display = "Block";
-    }
-
-    if(currentPage < Math.ceil(displayPokemons.length / itemsPerPage)){
-        nextPageBtn.style.display = "Block";
-    }
-
-    else{
-        nextPageBtn.style.display = "None";
-    }
-    
-}
-
-// This function adds cards the page to display the data in the array
+//post-condition: adds cards the page to display the data in the displayPokemons array
 function showMoreCards() {
 
-    // Store the current scroll position
+    //store the current scroll position 
     const scrollPosition = window.scrollY;
 
     const cardContainer = document.getElementById("card-container");
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = ""; //clear all cards
     const templateCard = document.querySelector(".card");
 
-    //display only a batch of pokemons
+    //extract a batch of pokemons from displayPokemons array
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayBatch = displayPokemons.slice(startIndex, endIndex);
@@ -82,14 +63,13 @@ function showMoreCards() {
         
     }
 
+    //update visibility of prev and next buttons 
     updateNavButtons();
 
-
-    if(!pageChanged){
-        // Restore the scroll position after re-rendering
-         window.scrollTo(0, scrollPosition);
-    }
+    // Restore the scroll position after re-rendering
+    if(!pageChanged) { window.scrollTo(0, scrollPosition) }
     else{
+        //go back to top if it is a new batch
         window.scrollTo(0, 300);
         pageChanged = false;
     }
@@ -97,9 +77,9 @@ function showMoreCards() {
     //console.log("page number is ", currentPage)
 
     //reattach event listeners to new cards
-    //mainly for delete
     attachCardEventListeners();
 }
+
 
 function editCardContent(card, pokemon) {
     card.style.display = "block";
@@ -124,64 +104,63 @@ function editCardContent(card, pokemon) {
 
 }
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showMoreCards);
-
-
 //to filter pokemons by type
 const typeButtons = document.querySelectorAll(".typeBtn");
 
-//filtering by type
+//postcondition: return a type-filtered array of pokemons
 function filterByType(pokemons, type){
 
     let filteredPokemons = []
 
     if(type == "All") return pokemons;
 
+    /* BOTH WAYS WORK THE SAME BUT I WANTED TO USE THE OTHER METHOD THIS TIME
+    else{
+        filteredPokemons = pokemons.filter(pokemon => {
+            return pokemon.Type.includes(type)
+        })
+    }*/
+
     for(let pokemon of pokemons){
-        
+
         if(pokemon.Type.includes(type))
              filteredPokemons.push(pokemon)
     }
 
-    
     return filteredPokemons;
 };
 
-typeButtons.forEach(btn => {
-    btn.addEventListener("click", ()=>{
-        
-        
-        //remove the lastClicked class from all buttons
-        typeButtons.forEach(button => {
-            button.classList.remove("lastClicked");
-        });
+//postcondition: return a type-filtered array of pokemons
+function filterByName(pokemons, searchQuery) {
 
-        //add the lastClicked class to the clicked button
-        btn.classList.add("lastClicked");
+    const filteredPokemons = pokemons.filter(pokemon =>
+      pokemon.Name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-        currentPage = 1;
-        playClickSound();
-        updateDisplayPokemons();
-        showMoreCards()
-    })
-})
+    return filteredPokemons;
+}
+
+const searchInput = document.getElementById('pokeSearch');
+searchInput.addEventListener('input', () => {
+
+    currentPage = 1;
+    updateDisplayPokemons();
+    showMoreCards();
+});
+
 
 //sort by stats
 const statButtons = document.querySelectorAll(".statBtn");
 
-//filtering by different stats
+//postcondition: return a stats-filtered array of pokemons
 function  sortByStat(pokemons, stat){
-
-    //spread operator -> copies allPokemons
-    let sortedPokemons = [...pokemons]
-    sortedPokemons.sort((a,b)=>{
+    pokemons.sort((a,b)=>{
 
        if(sortHighToLow) {return b[stat] - a[stat]}
        else return a[stat] - b[stat]
     })
 
-    return sortedPokemons;
+    return pokemons;
 }
 
 statButtons.forEach(btn => {
@@ -223,23 +202,58 @@ sortDirectionBtn.addEventListener("click", ()=>{
 
 })
 
-//for searching pokemons with name
-function filterByName(pokemons, searchQuery) {
 
-    const filteredPokemons = pokemons.filter(pokemon =>
-      pokemon.Name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
 
-    return filteredPokemons;
+
+
+
+function updateNavButtons(){
+
+    if(currentPage == 1){
+        prevPageBtn.style.display = "None";
+    }
+
+    else{
+        prevPageBtn.style.display = "Block";
+    }
+
+    if(currentPage < Math.ceil(displayPokemons.length / itemsPerPage)){
+        nextPageBtn.style.display = "Block";
+    }
+
+    else{
+        nextPageBtn.style.display = "None";
+    }
+    
 }
 
-const searchInput = document.getElementById('pokeSearch');
-searchInput.addEventListener('input', () => {
 
-    currentPage = 1;
-    updateDisplayPokemons();
-    showMoreCards();
-  });
+
+
+// This calls the addCards() function when the page is first loaded
+document.addEventListener("DOMContentLoaded", showMoreCards);
+
+
+
+
+typeButtons.forEach(btn => {
+    btn.addEventListener("click", ()=>{
+        
+        
+        //remove the lastClicked class from all buttons
+        typeButtons.forEach(button => {
+            button.classList.remove("lastClicked");
+        });
+
+        //add the lastClicked class to the clicked button
+        btn.classList.add("lastClicked");
+
+        currentPage = 1;
+        playClickSound();
+        updateDisplayPokemons();
+        showMoreCards()
+    })
+})
 
 
 //to delete each pokemon
