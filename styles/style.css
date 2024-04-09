@@ -52,21 +52,21 @@ body {
     transform: scale(1.05); 
     box-shadow: 0 0 20px rgba(255, 0, 0, 0.5), 
                 0 0 40px rgba(0, 255, 0, 0.5), 
-                0 0 60px rgba(0, 0, 255, 0.5); /* Add multiple colorful shadows */
+                0 0 60px rgba(0, 0, 255, 0.5);
 }
 
 .favorite-icon {
     position: absolute;
-    top: 5px; /* Adjust as needed */
-    right: 5px; /* Adjust as needed */
-    color: black; /* Color of the star icon or emoji */
-    font-size: 20px; /* Adjust as needed */
+    top: 5px; 
+    right: 5px; 
+    color: black; 
+    font-size: 20px; 
     background-color: transparent;
 
 }
 
 .favorite-icon.isFavorite {
-    color: gold; /* Set the star to gold */
+    color: gold; 
   }
 
 .card-content {
@@ -146,11 +146,10 @@ button {
     font-family: 'Verdana';
 }
 
-/* Define the size of the dialog box */
 dialog {
-    width: 70%; /* Set a percentage-based width */
-    max-width: 700px; /* Set a maximum width */
-    overflow-y: auto; /* Add vertical scrollbar if content overflows */
+    width: 70%; 
+    max-width: 700px; 
+    overflow-y: auto; 
 }
 
 dialog #pokemonImage{
@@ -162,14 +161,12 @@ dialog #pokemonImage{
     color: #fff;
 }
 
-
-/* Gradient for the "Release" button */
 .release {
     background: linear-gradient(135deg, #ff1744, #d50000);
     color: #fff;
 }
 
-/* Hover effect for buttons */
+/* hover effect for buttons */
 .details:hover,
 .release:hover {
     filter: brightness(1.1);
@@ -178,7 +175,7 @@ dialog #pokemonImage{
 /* -------------------------sort/filter buttons------------------------- */
 .filter-label{
     font-size: 18px;
-    color: rgba(255, 255, 255, 0.882); /* Adjust color as needed */
+    color: rgba(255, 255, 255, 0.882); 
     margin-bottom: 20px;
     margin-left: 20px;
 
@@ -232,13 +229,13 @@ dialog #pokemonImage{
     margin-top: 20px;
     display: flex;
     align-items: center;
-    justify-content: center; /* Center horizontally */
+    justify-content: center; /*center horizontally */
     background-color: transparent;
 }
 
 .search-bar input[type="text"] {
     color: #777;
-    border-radius: 30px; /* Rounded corners */
+    border-radius: 30px; 
     padding: 10px 8px;
     width: 500px;
     height: 40px;
@@ -274,27 +271,27 @@ dialog #pokemonImage{
 /* Styles for type spans */
 .typeSpan {
     display: inline-block;
-    padding: 2px 10px; /* Adjust padding to make the span look like a pill */
+    padding: 2px 10px; 
     margin-right: 1px;
-    border-radius: 20px; /* Adjust border-radius to make the span look like a pill */
+    border-radius: 20px; /*adjust border-radius to make the span look like a pill */
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .typeFire {
-    background-color: #FFA07A; /* Light salmon */
-    color: #fff; /* White */
+    background-color: #FFA07A; 
+    color: #fff; 
 }
 
 .typeWater {
-    background-color: #6495ED; /* Cornflower blue */
-    color: #fff; /* White */
+    background-color: #6495ED; 
+    color: #fff; 
 }
 
 .typeGrass {
-    background-color: #77d11e; /* Lawn green */
-    color: white; /* Black */
+    background-color: #77d11e; 
+    color: white; 
 }
 
 .typeElectric {
@@ -343,18 +340,18 @@ color: #fff;
 }
 
 .typeIce {
-background-color: #98D8D8; /* Light blue */
-color: #fff; /* Black text */
+background-color: #98D8D8; 
+color: #fff;
 }
 
 .typeGhost {
-background-color: #705898; /* Purple */
-color: #fff; /* White text */
+background-color: #705898; 
+color: #fff; 
 }
 
 .typePsychic {
-background-color: #F85888; /* Pink */
-color: #fff; /* Black text */
+background-color: #F85888; 
+color: #fff; 
 }
 
 /* Media query for smaller screens */

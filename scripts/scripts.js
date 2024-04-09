@@ -4,12 +4,7 @@
 import allPokemons from "./pokemons.js";
 
 //this array stores pokemons to display
-let displayPokemons = [...allPokemons] //shallow copy
-
-//for pokemon sprites
-const baseURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
-const baseURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
-const baseURL_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+let displayPokemons = allPokemons 
 
 //helper variables
 let sortHighToLow = false
@@ -52,7 +47,7 @@ function filterByType(pokemons, type){
         }
     }
 
-    /* BOTH WAYS WORK THE SAME BUT I WANTED TO USE THE OTHER METHOD THIS TIME
+    /* BOTH WAYS WORK THE SAME BUT I WANTED TO try THE OTHER METHOD THIS TIME
     else{
         filteredPokemons = pokemons.filter(pokemon => {
             return pokemon.Type.includes(type)
@@ -171,6 +166,13 @@ function showMoreCards() {
     attachCardEventListeners();
 }
 
+//for pokemon image URLS
+//I AM NOT USING AN API HERE, "PokeAPI" is a github repo name, and I get image links from that repo
+//This source taught me how to get pokemon images from github: https://stackoverflow.com/questions/69239521/unable-to-display-pokemon-image-from-pokeapi-co
+const imgURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+const imgURL_back = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/'
+const pokemon_sound = "https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/"
+
 //pre-conditions: card template and pokemon object are passed
 //post-condition: adds pokemon data to the card
 function editCardContent(card, pokemon) {
@@ -184,7 +186,7 @@ function editCardContent(card, pokemon) {
 
     const cardImage = card.querySelector("img");
     //corresponding pokemon spirte 
-    cardImage.src = `${baseURL}${pokemonID}.png`; 
+    cardImage.src = `${imgURL}${pokemonID}.png`; 
     cardImage.alt = pokemon.Name + " Image";
 
     const cardBullets = card.querySelectorAll("li");
@@ -362,7 +364,7 @@ function updateModalBox(pokemonID){
     dialog.querySelector('#defense').innerHTML = `<b>Defense:</b> ${Defense}, <b>Sp. Def:</b> ${SpDef}`;
     dialog.querySelector('#speed').innerHTML = `<b>Speed:</b> ${Speed}`;
     dialog.querySelector('#pokemonDescription').innerHTML = `${Description}`;
-    dialog.querySelector('#pokemonImage').src =  `${baseURL}${Id}.png`;
+    dialog.querySelector('#pokemonImage').src =  `${imgURL}${Id}.png`;
 
     if(Type[1]){
         dialog.querySelector('#pokemonType').innerHTML = `<b>Type:</b> <span class="typeSpan type${Type[0]}"> ${Type[0]} </span> <span class="typeSpan  type${Type[1]}"> ${Type[1]} </span>`;
@@ -384,7 +386,7 @@ function playPokemonSound(pokemonID) {
 
     //to play pokemon sounds
     const pokemonSound = document.getElementById("pokemonSound")
-    pokemonSound.src =`${baseURL_sound}${pokemon.Id}.ogg`
+    pokemonSound.src =`${pokemon_sound}${pokemon.Id}.ogg`
 
     pokemonSound.volume = 0.2;
     pokemonSound.play();
@@ -396,7 +398,8 @@ function playClickSound() {
     hoverSound.play();
 }
 
-
+//after reloading the cards, they lose their eventlisteners
+//we need to stick them back
 function attachCardEventListeners() {
 
     //details buttons
@@ -443,7 +446,7 @@ function attachCardEventListeners() {
             const deleteID = parseInt(parts[1].trim());
 
             const imgElement = card.querySelector('img');
-            imgElement.src = `${baseURL_back}${deleteID}.png`
+            imgElement.src = `${imgURL_back}${deleteID}.png`
 
             playPokemonSound(deleteID);
 

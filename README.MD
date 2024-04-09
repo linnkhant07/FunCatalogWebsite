@@ -43,11 +43,9 @@ This is the instructions, requirements, and starter for stage two of the Snap En
 3. Submit the URL to your published website and the link to your Github repository to the google form in your email.
 
 ## Resources Used
-
-To gather information about pokemon: https://github.com/lgreski/pokemonData/blob/master/Pokemon.csv
-PokeAPI: https://pokeapi.co/docs/v2#pokemon-section
-For sorting + JavaScript Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-How to use Modal Boxes in HTML: https://blog.webdevsimplified.com/2023-04/html-dialog/
-Fonts: Google Fonts
-
-
+- For sorting + JavaScript Documentation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+- How to use Modal Boxes in HTML: https://blog.webdevsimplified.com/2023-04/html-dialog/
+- Fonts: Google Fonts
+- To gather information about pokemon stats: https://github.com/lgreski/pokemonData/blob/master/Pokemon.csv
+- Use of ChatGPT: I used ChatGPT to give me the the description of each pokemon since it was too tedious for me to write it on my own
+- This link taught me how to get pokemon images from github: https://stackoverflow.com/questions/69239521/unable-to-display-pokemon-image-from-pokeapi-co
