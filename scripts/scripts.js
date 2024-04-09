@@ -79,6 +79,24 @@ function deletePokemon(pokemons, deleteID){
     pokemons.splice(indexToDelete, 1);
 }
 
+//postcondition: the pokemon's isFavorite property is toggled
+function toggleFavorite(pokemons, pokemonID){
+    const pokemon = pokemons.find(pokemon => pokemon.Id == pokemonID)
+    
+    if (pokemon) {
+
+        //check if isFavorite property exists, if not, set it to false
+        if (pokemon.isFavorite == undefined) {
+            pokemon.isFavorite = false;
+        }
+        
+        pokemon.isFavorite = !pokemon.isFavorite;
+
+        console.log(pokemon.Name, "'s favorite value was toggled to", pokemon.isFavorite)
+    }
+}
+
+
 //-------------------------------------------------------------------
 
 
@@ -165,6 +183,15 @@ function editCardContent(card, pokemon) {
     cardBullets[0].textContent = `Pokè ID: ${pokemon.Id}`;
     cardBullets[1].textContent = `Type: ${pokemon.Type}`;
     cardBullets[2].textContent = `Total Stats: ${pokemon.Total}`;
+
+    //for the favorite icon star
+    if(pokemon.isFavorite && pokemon.isFavorite == true){
+        console.log("hehe")
+        let favBtn = card.querySelector(".favorite-icon")
+        favBtn.classList.add('isFavorite');
+    }
+    
+    
 
 }
 
@@ -281,6 +308,8 @@ const cards = document.querySelectorAll(".card");
 cards.forEach(card => {
     card.addEventListener("mouseenter", playHoverSound);
 });
+
+
 
 
 //----------------------------------------------------------------
@@ -426,6 +455,29 @@ function attachCardEventListeners() {
             
         });
     });
+
+    //for favorite selection
+    //for the favorite selection
+    const favoriteBtns = document.querySelectorAll(".favorite-icon")
+    favoriteBtns.forEach(btn =>{
+        btn.addEventListener('click', ()=>{
+        //take the parent card of the btn
+        const card = btn.closest('.card');
+
+        let pokemonID = card.querySelector("li").innerText;
+        
+        //pick out the id part first
+        const parts = pokemonID.split(":");
+        pokemonID = parseInt(parts[1].trim());
+        
+        //toggle favorite
+        toggleFavorite(allPokemons, pokemonID)
+        updateDisplayPokemons();
+        showMoreCards(); 
+
+        })
+    })
+
 
     // Add event listeners to card elements
     const cards = document.querySelectorAll(".card");
