@@ -11,7 +11,7 @@ let sortHighToLow = false
 let pageChanged = false
 
 //number of items to load initially and each time the button is clicked
-const itemsPerPage = 15;
+const itemsPerPage = 20;
 let currentPage = 1;
 
 //-------------------------DATA OPERATION FUNCTIONS-------------------------
