@@ -38,6 +38,20 @@ function filterByType(pokemons, type){
 
     if(type == "All") return pokemons;
 
+    else if (type == "Favorites"){
+         filteredPokemons = pokemons.filter(pokemon =>{
+            return pokemon.isFavorite && pokemon.isFavorite == true
+         })
+    }
+
+    else{
+        for(let pokemon of pokemons){
+
+            if(pokemon.Type.includes(type))
+                 filteredPokemons.push(pokemon)
+        }
+    }
+
     /* BOTH WAYS WORK THE SAME BUT I WANTED TO USE THE OTHER METHOD THIS TIME
     else{
         filteredPokemons = pokemons.filter(pokemon => {
@@ -45,11 +59,7 @@ function filterByType(pokemons, type){
         })
     }*/
 
-    for(let pokemon of pokemons){
-
-        if(pokemon.Type.includes(type))
-             filteredPokemons.push(pokemon)
-    }
+    
 
     return filteredPokemons;
 };
@@ -228,6 +238,7 @@ typeButtons.forEach(btn => {
         showMoreCards()
     })
 })
+
 
 //statButtons
 const statButtons = document.querySelectorAll(".statBtn");

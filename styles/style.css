@@ -193,7 +193,8 @@ dialog #pokemonImage{
 
 .typeBtn,
 .statBtn,
-.sortDirectionBtn{
+.sortDirectionBtn,
+.favoriteBtn{
     background-color: green;
     color: white;
     border-radius: 20px;
@@ -203,15 +204,21 @@ dialog #pokemonImage{
     font-family: "Press Start 2P";
 }
 
+.typeBtn{
+    background-color: red;
+
+}
 .sortDirectionBtn{
     background-color: rgb(226, 151, 11);
     border-radius: 10px;
 }
 
-.typeBtn{
-    background-color: red;
-
+.favoriteBtn{
+    background-color: rgb(223, 35, 98);
+    border-radius: 10px;
 }
+
+
 
 .lastClicked{
     background-color: black;
