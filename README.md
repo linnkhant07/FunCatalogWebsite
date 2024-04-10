@@ -16,22 +16,26 @@ These are the data operations you can perform with each pokemon (array entry).
 ### Filtering
 
 Pokemons can be filtered according to their types.
+
 <img width="1710" alt="Screenshot 2024-04-09 at 7 25 51 PM" src="https://github.com/linnkhant07/Mini_Pokedex_CatalogWebsite/assets/68958137/d64fe59e-918f-4a9d-b5cf-5a8943f72568">
 
 ### Sorting
 
-Pokemons can be sorted according to their stats and Id (either low to high or high to low)
+Pokemons can be sorted according to their stats and ID (either low to high or high to low).
+
 <img width="1710" alt="Screenshot 2024-04-09 at 7 38 21 PM" src="https://github.com/linnkhant07/Mini_Pokedex_CatalogWebsite/assets/68958137/f5ce4acd-c59b-421c-8942-9fc20974ce9b">
 
 
 ### Searching
 
 Users can search Pokemons with their names.
+
 <img width="1710" alt="Screenshot 2024-04-09 at 7 38 34 PM" src="https://github.com/linnkhant07/Mini_Pokedex_CatalogWebsite/assets/68958137/7b8d30c5-1530-459e-bec4-e70baf30a287">
 
 ### Viewing Details
 
 Users can view the details of each pokemon. 
+
 <img width="1710" alt="Screenshot 2024-04-09 at 7 39 56 PM" src="https://github.com/linnkhant07/Mini_Pokedex_CatalogWebsite/assets/68958137/fae89877-c7f6-4c03-9830-9a4a4e7dad2b">
 
 ### Deleting
@@ -41,6 +45,7 @@ Pokemons can be released (deleted), and they will be forever gone from the array
 ### Favorite Property
 
 Users can toggle any Pokemon as their favorite. These favorite Pokemons can be checked with the sort button "Favorites".
+
 <img width="1710" alt="Screenshot 2024-04-09 at 7 41 29 PM" src="https://github.com/linnkhant07/Mini_Pokedex_CatalogWebsite/assets/68958137/8c0d3d5e-a267-4199-a617-5564ad1f0c88">
 
 ## Resources Used
